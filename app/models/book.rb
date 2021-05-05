@@ -3,7 +3,14 @@ class Book < ApplicationRecord
   has_many :book_genres, dependent: :destroy
   has_many :genres, through: :book_genres
 
+  validates :title, presence: true
+  validate :valid_title?
+
   def genres_to_csv
     genres.map { |genre| genre.name }.join(", ")
+  end
+
+  def valid_title?
+    return title != nil && !title.strip.empty?
   end
 end
