@@ -1,0 +1,5 @@
+<h2><%= @book.title %></h2>
+<h3>By <%= @book.author.full_name %></h3>
+<p><strong>Genres: </strong><%= @book.genres_to_csv %></p>
+<hr />
+<p><%= link_to "<< Back", :back %></p>
