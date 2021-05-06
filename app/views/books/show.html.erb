@@ -2,4 +2,10 @@
 <h3>By <%= @book.author.full_name %></h3>
 <p><strong>Genres: </strong><%= @book.genres_to_csv %></p>
 <hr />
-<p><%= link_to "<< Back", :back %></p>
+<p>
+    <%= link_to "<< Back", :back %>
+     | 
+    <%= link_to "Edit", edit_book_path %>
+     | 
+    <%= link_to "Delete", @book, method: :delete, data: { confirm: "Are you sure?" } %>
+</p>

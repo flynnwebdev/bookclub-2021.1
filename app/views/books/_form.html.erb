@@ -8,6 +8,10 @@
         <%= f.collection_select :author_id, @authors, :id, :full_name %>
     </p>
     <p>
+        <%= f.label :genres %>
+        <%= f.collection_check_boxes :genre_ids, @genres, :id, :name %>
+    </p>
+    <p>
         <%= f.submit %>
     </p>
 <% end %>

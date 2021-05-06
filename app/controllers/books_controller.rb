@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
     before_action :set_book, only: [:update, :show, :destroy, :edit]
+    before_action :set_authors_and_genres, only: [:new, :edit, :create, :update]
 
     def index
         @books = Book.order(:title)
@@ -10,11 +11,9 @@ class BooksController < ApplicationController
 
     def new
         @book = Book.new
-        @authors = Author.order(:last_name)
     end
 
     def create
-        @authors = Author.order(:last_name)
         @book = Book.new(book_params)
         if @book.save
             redirect_to @book
@@ -28,9 +27,17 @@ class BooksController < ApplicationController
     end
 
     def update
+        if @book.update(book_params)
+            redirect_to @book
+        else
+            flash.now[:errors] = @book.errors.full_messages
+            render action: 'edit'
+        end
     end
 
     def destroy
+        @book.destroy
+        redirect_to books_path
     end
 
     private
@@ -39,7 +46,12 @@ class BooksController < ApplicationController
         @book = Book.find(params[:id])        
     end
 
+    def set_authors_and_genres
+        @authors = Author.order(:last_name)
+        @genres = Genre.order(:name)
+    end
+
     def book_params
-        params.require(:book).permit(:title, :author_id)
+        params.require(:book).permit(:title, :author_id, genre_ids: [])
     end
 end
