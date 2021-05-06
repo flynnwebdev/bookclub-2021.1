@@ -4,8 +4,10 @@
 <hr />
 <p>
     <%= link_to "<< Back", :back %>
-     | 
-    <%= link_to "Edit", edit_book_path %>
-     | 
-    <%= link_to "Delete", @book, method: :delete, data: { confirm: "Are you sure?" } %>
+    <% if user_signed_in? %>
+        | 
+        <%= link_to "Edit", edit_book_path %>
+        | 
+        <%= link_to "Delete", @book, method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
 </p>
