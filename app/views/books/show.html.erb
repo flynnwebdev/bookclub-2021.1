@@ -4,10 +4,10 @@
 <hr />
 <p>
     <%= link_to "<< Back", :back %>
-    <% if user_signed_in? %>
+    <% if policy(Book).edit? || policy(Book).destroy? %>
         | 
-        <%= link_to "Edit", edit_book_path %>
+        <%= link_to "Edit", edit_book_path if policy(Book).edit? %>
         | 
-        <%= link_to "Delete", @book, method: :delete, data: { confirm: "Are you sure?" } %>
+        <%= link_to "Delete", @book, method: :delete, data: { confirm: "Are you sure?" } if policy(Book).destroy? %>
     <% end %>
 </p>

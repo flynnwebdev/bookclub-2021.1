@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!
+    before_action :check_auth, except: [:index, :show]
     before_action :set_book, only: [:update, :show, :destroy, :edit]
     before_action :set_authors_and_genres, only: [:new, :edit, :create, :update]
 
@@ -50,6 +51,10 @@ class BooksController < ApplicationController
     def set_authors_and_genres
         @authors = Author.order(:last_name)
         @genres = Genre.order(:name)
+    end
+
+    def check_auth
+        authorize Book
     end
 
     def book_params
